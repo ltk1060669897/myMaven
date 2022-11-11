@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.boot.mapper.OrgMapper">
+
+    <select id="queryAllOrg" resultType="com.example.boot.entity.OrgVo">
+        SELECT
+            ORG_ID AS orgId
+		    ,ORG_OID AS parentId
+		    ,ORG_NAME AS orgName
+        FROM
+          SYS_ORGAN
+        WHERE
+          IS_DEL = 1
+    </select>
+
+
+</mapper>

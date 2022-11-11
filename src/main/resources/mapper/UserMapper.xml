@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.boot.mapper.UserMapper">
+
+    <select id="queryUser" parameterType="com.example.boot.entity.TbUser" resultType="com.example.boot.entity.TbUser">
+        SELECT
+            USER_ID
+            ,USER_NAME
+            ,DEL_YN
+        FROM USER
+        WHERE DEL_YN = 'N'
+        <if test="user.userName != null and user.userName != ''">
+            AND USER_NAME LIKE CONCAT('%', #{user.userName}, '%')
+        </if>
+    </select>
+
+    <update id="update" parameterType="com.example.boot.entity.TbUser">
+        UPDATE USER
+        SET
+          <choose>
+            <when test="user.userName == 'Admin1'">
+                USER_NAME = 'Admin1'
+            </when>
+            <when test="user.userName == 'Admin2'">
+                USER_NAME = 'Admin2'
+            </when>
+            <otherwise>
+                USER_NAME = #{user.userName}
+            </otherwise>
+          </choose>
+        WHERE
+            USER_ID = #{user.userId};
+    </update>
+
+
+</mapper>
